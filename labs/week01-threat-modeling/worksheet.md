@@ -9,15 +9,20 @@
 ## Part 1 — Student Information
 | Name | Student ID | Date | Group |
 |---|---|---|---|
-| | | | |
+| Sadayu Suriya | 6631503040  | 15/8/2569 |  -  |
 
 ## Part 2 — Lecture Questions
 Answer in your own words (2–4 sentences each).
 1. Define the CIA triad and give one concrete failure example for each of the three properties.
+Answer: C(Confidentiality) ex. hacker come into website and leak private data , I(Integrity) ex. attacker cone into website db to change user data,  A(Availability) ex. web server shutdown when user come in website a lot 
 2. What is a *trust boundary*, and why does data crossing one deserve extra scrutiny?
+Answer: s the boundary where data crosses between components of different privilege levels, Outside the boundary, you cannot trust anything. An attacker can send malicious inputs, fake parameters
 3. Explain "attack surface." Name two things that increase it in a web app.
+Answer:  attack surface is area or field that attacker can use to attack buissness example HTTP params, headers, cookies, file uploads, APIs, env vars, dependencies
 4. What does each STRIDE letter map to, and which security property does each threat violate?
+Answer: S(Spoofing) - Authentication, T(Tampering) - Integrity, R(Repudiation) - Non-repudiation, I(information disclosure) - Confidentiality, D(Denial of service) - Avaliability and E(Elevation of privilege) - Authorzition
 5. What does "Secure by Design" (CISA) mean, and how does it differ from bolting security on after release?
+Answer: building software to be safe right from the start so entire bug types are prevented before code is written. This contrasts with the old model of rushing a product out and patching individual bugs only after release.
 
 ## Part 3 — Hands-on Lab (180 min)
 **Learning goals:** build a data-flow diagram (DFD), apply STRIDE to a real Flask app, rank risks, and propose mitigations.
