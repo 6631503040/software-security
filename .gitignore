@@ -9,8 +9,14 @@ Thumbs.db
 __pycache__/
 *.pyc
 .venv/
+.venv*/
 venv/
 *.egg-info/
+*.db
+
+# Week 3 crypto lab — downloaded wordlist + hashcat toolkit (huge, never commit)
+labs/week03-cryptography/rockyou.txt
+labs/week03-cryptography/hashcat-*/
 
 # Node
 node_modules/

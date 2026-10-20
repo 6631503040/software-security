@@ -1,0 +1,44 @@
+Sources-and-AI log — Week 9 Midterm CTF Practical
+Name: Sadayu Suriya | Student ID: 6631503040 | Date: 19 September 2026
+
+R1 — Challenge 1 (Boolean Bypass)
+Tool/model: Claude Code (Claude Sonnet 5)
+Prompt (summary): asked to walk through the Boolean Bypass challenge against the week04-injection /login endpoint, find a payload to log in as admin without knowing the password.
+Relevant response: suggested payload user=admin'-- with any pw value, explained that ' closes the username string literal and -- comments out the rest of the SQL query including the password check.
+What I used/changed: used the payload exactly as suggested: /login?user=admin'--&pw=x
+How I checked the result: ran the curl command myself against the running container and got "Welcome admin" back — confirmed in my own terminal, screenshot taken with timestamp.
+
+R2 — Challenge 2 (Shell Out)
+Tool/model: Claude Code (Claude Sonnet 5)
+Prompt (summary): asked how to use the host parameter on /ping to read /flag.txt via command injection.
+Relevant response: suggested payload host=127.0.0.1;cat /flag.txt, explained the endpoint runs the host value inside a shell=True subprocess call so ; chains a second command.
+What I used/changed: used the payload exactly as suggested.
+How I checked the result: ran the curl command myself, got FLAG{cmdi_demo} back in my own terminal, screenshot taken with timestamp.
+
+R3 — Challenge 3 (Pop the Alert)
+Tool/model: Claude Code (Claude Sonnet 5)
+Prompt (summary): asked how to prove stored XSS on /comments fires for a different viewer, not just the poster.
+Relevant response: suggested posting <script>alert(document.domain)</script> to the comment form, then reloading the page in a separate incognito window/session to prove the payload is stored and fires for any visitor.
+What I used/changed: used the payload as suggested; opened a new incognito tab myself to reload /comments.
+How I checked the result: watched the alert fire myself in the incognito tab showing "localhost" (document.domain), screenshot taken with timestamp in that same window.
+
+R4 — Challenge 4 (Not Your Order)
+Tool/model: Claude Code (Claude Sonnet 5)
+Prompt (summary): asked how to read another user's order using my own assigned normal-user account (alice) against /api/orders/<id>.
+Relevant response: suggested logging in as alice normally, then requesting /api/orders/2 (bob's order id) with alice's own token, since the endpoint has no ownership check.
+What I used/changed: used the exact login + curl commands suggested.
+How I checked the result: ran the commands myself, saw bob's order (FLAG{idor_demo}) returned using only alice's token, screenshot taken with timestamp.
+
+R6 — Challenge 6 (Crack It)
+Tool/model: Claude Code (Claude Sonnet 5)
+Prompt (summary): asked how to crack the MD5 hashes in hashes.txt using the hashcat binary and rockyou.txt already in the lab folder, and why the hashcat.exe command needed to be run from inside the hashcat-7.1.2 folder specifically.
+Relevant response: gave the command `hashcat.exe -m 0 -a 0 ..\hashes.txt ..\rockyou.txt --potfile-disable -o ..\cracked.txt` run from inside hashcat-7.1.2/, and explained -m 0 selects MD5 mode and -a 0 is a straight dictionary attack; also explained hashcat looks for its OpenCL/ folder relative to the current directory, so it must be run from inside the hashcat-7.1.2 folder.
+What I used/changed: ran the exact command suggested.
+How I checked the result: ran it myself, watched it report 4/4 cracked, and read cracked.txt myself to see the recovered passwords, screenshot taken with timestamp.
+
+R7 — Challenge 7 (Penguin)
+Tool/model: Claude Code (Claude Sonnet 5)
+Prompt (summary): asked how to demonstrate the ECB oracle leaking structure using two identical plaintext blocks, and what to say for "what structure is leaked".
+Relevant response: suggested encrypt_ecb(b"A"*16 + b"A"*16), reading the first two 16-byte ciphertext blocks and comparing them, and explained ECB encrypts each block independently with no chaining, so identical plaintext blocks always produce identical ciphertext blocks — leaking repeated structure (like the classic ECB-encrypted-image example) without needing the key.
+What I used/changed: used the exact Python commands suggested, in my own interactive Python session.
+How I checked the result: ran it myself in the Python REPL, saw ct[0:16] == ct[16:32] evaluate to True, screenshot taken with timestamp.
